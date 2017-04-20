@@ -1,0 +1,243 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+    >sift (v3.3.2)</a>
+</h1>
+<h4>mongodb query style array filtering</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.sift">module sift</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.sift.sift">
+            function <span class="apidocSignatureSpan"></span>sift
+            <span class="apidocSignatureSpan">(query, array, getter)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.sift.compare">
+            function <span class="apidocSignatureSpan">sift.</span>compare
+            <span class="apidocSignatureSpan">(a, b)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.sift.indexOf">
+            function <span class="apidocSignatureSpan">sift.</span>indexOf
+            <span class="apidocSignatureSpan">(query, array, getter)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.sift.use">
+            function <span class="apidocSignatureSpan">sift.</span>use
+            <span class="apidocSignatureSpan">(plugin)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.sift" id="apidoc.module.sift">module sift</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.sift.sift" id="apidoc.element.sift.sift">
+        function <span class="apidocSignatureSpan"></span>sift
+        <span class="apidocSignatureSpan">(query, array, getter)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function sift(query, array, getter) {
+
+  if (isFunction(array)) {
+    getter = array;
+    array  = void 0;
+  }
+
+  var validator = createRootValidator(query, getter);
+
+  function filter(b) {
+    return validate(validator, b);
+  }
+
+  if (array) {
+    return array.filter(filter);
+  }
+
+  return filter;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+	&#x3c;body&#x3e;
+	&#x3c;/body&#x3e;
+&#x3c;/html&#x3e;
+```
+
+## API
+
+### .<span class="apidocCodeKeywordSpan">sift</span>(filter[, array][, selectorFn])
+
+- `filter` - the filter to use against the target array
+- `array` - sifts against target array. Without this, a function is returned
+- `selectorFn` - selector for the values within the array.
+
+With an array:
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.sift.compare" id="apidoc.element.sift.compare">
+        function <span class="apidocSignatureSpan">sift.</span>compare
+        <span class="apidocSignatureSpan">(a, b)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">compare = function (a, b) {
+  if(a===b) return 0;
+  if(typeof a === typeof b) {
+    if (a &#x3e; b) {
+      return 1;
+    }
+    if (a &#x3c; b) {
+      return -1;
+    }
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.sift.indexOf" id="apidoc.element.sift.indexOf">
+        function <span class="apidocSignatureSpan">sift.</span>indexOf
+        <span class="apidocSignatureSpan">(query, array, getter)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">indexOf = function (query, array, getter) {
+  return search(array, createRootValidator(query, getter));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+{
+	name: &#x27;tim&#x27;,
+	address: {
+		city: &#x27;St. Paul&#x27;
+	}
+}];
+
+var index = sift.<span class="apidocCodeKeywordSpan">indexOf</span>({ address: { city: &#x27;Minneapolis&#x27; }}, people); // index
+ = 0
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.sift.use" id="apidoc.element.sift.use">
+        function <span class="apidocSignatureSpan">sift.</span>use
+        <span class="apidocSignatureSpan">(plugin)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">use = function (plugin) {
+  if (isFunction(plugin)) return plugin(sift);
+  for (var key in plugin) {
+    if (key.charCodeAt(0) === 36) {
+      operator[key] = plugin[key];
+    }
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+## Custom Expressions
+
+You can add your own expressions. For instance - say you want to do some bitmask filtering, you could add this example:
+
+```javascript
+
+sift.<span class="apidocCodeKeywordSpan">use</span>({
+	$band: function(a, b) {
+		return (a &#x26; b) ? 0 : -1; // 0 = exists, -1 = doesn&#x27;t exist
+	}
+});
+
+// ops
+var IS_ANIMAL = 2,
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
